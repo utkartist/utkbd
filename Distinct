@@ -1,0 +1,32 @@
+Distinct
+
+Mapper.py
+
+#!/usr/bin/env python3
+import sys
+
+for line in sys.stdin:
+    # Assuming numbers are space-separated, split the line into numbers
+    numbers = line.strip().split(' ')
+    for number in numbers:
+        # Emit each number as a key
+        print(f'{number}\t1')
+
+======================================================================================
+
+#!/usr/bin/env python3
+import sys
+
+previous_number = None
+
+for line in sys.stdin:
+    number, _ = line.strip().split('\t', 1)
+    
+    # If this number is the same as the previous one, skip it
+    if number == previous_number:
+        continue
+    else:
+        print(number)
+        previous_number = number
+
+====================================================================================
