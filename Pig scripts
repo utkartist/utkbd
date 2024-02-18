@@ -1,0 +1,63 @@
+Min and Max values
+
+-- Load the data
+numbers = LOAD '/path/to/input.txt' USING PigStorage(',') AS (number:double);
+
+-- Calculate Minimum
+minNumber = GROUP numbers ALL;
+minValue = FOREACH minNumber GENERATE MIN(numbers.number);
+
+-- Calculate Maximum
+maxNumber = GROUP numbers ALL;
+maxValue = FOREACH maxNumber GENERATE MAX(numbers.number);
+
+-- Store or Display Results
+DUMP minValue;
+DUMP maxValue;
+
+============================================================================================================================
+
+Sorting numbers pig script
+
+-- Load the data
+numbers = LOAD '/path/to/input.txt' USING PigStorage(',') AS (number:double);
+
+-- Sort the numbers in ascending order
+sortedNumbers = ORDER numbers BY number;
+
+-- Store or Display Results
+DUMP sortedNumbers;
+
+
+====================================================================================================
+
+ frequency of each numebers
+
+-- Load the data
+numbers = LOAD '/path/to/input.txt' USING PigStorage(',') AS (number:double);
+
+-- Group by each unique number
+groupedNumbers = GROUP numbers BY number;
+
+-- Calculate frequency
+frequency = FOREACH groupedNumbers GENERATE group AS number, COUNT(numbers) AS count;
+
+-- Store or Display Results
+DUMP frequency;
+
+
+=========================================================================================================
+
+Distinct numbers 
+
+-- Load the data
+numbers = LOAD '/path/to/input.txt' USING PigStorage(',') AS (number:double);
+
+-- Find distinct numbers
+distinctNumbers = DISTINCT numbers;
+
+-- Store or Display Results
+DUMP distinctNumbers;
+
+
+============================================================================================
