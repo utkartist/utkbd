@@ -1,0 +1,40 @@
+Sorting
+
+============================================================
+
+Mapper.py
+
+#!/usr/bin/env python3
+import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    numbers = line.split(' ')
+    for number in numbers:
+        # Emit the number as key and a dummy value '1'
+        print(f'{number}\t1')
+
+
+===============================================================
+
+Reducer.py
+
+#!/usr/bin/env python3
+import sys
+
+for line in sys.stdin:
+    key, value = line.strip().split('\t', 1)
+    print(key)
+
+
+=================================================================================================
+
+
+print(f'{-1 * float(number)}\t1')
+
+
+================================================
+
+print(float(key) * -1)
+
+===============================================================

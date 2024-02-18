@@ -1,0 +1,76 @@
+Mapper.py
+
+#!/usr/bin/env python3
+import sys
+import re
+
+# input comes from STDIN (standard input)
+for line in sys.stdin:
+    # Remove leading and trailing whitespace
+    line = line.strip()
+    
+    # Find all numbers in the line including negative and positive floats and integers
+    numbers = re.findall(r"-?\b\d+\.?\d*\b", line)
+
+    # emit the numbers to STDOUT
+    for number in numbers:
+        # Write the results to STDOUT;
+        # what we output here will be the input for the Reduce step,
+        # i.e., the input for reducer.py
+        #
+        # tab-delimited; the trivial word count is 1
+        print(f'Number\t{number}')
+
+
+==========================
+
+
+Reducer.py
+
+#!/usr/bin/env python3
+import sys
+
+current_count = 0
+current_sum = 0.0
+
+# input comes from STDIN
+for line in sys.stdin:
+    # remove leading and trailing whitespace
+    line = line.strip()
+
+    # parse the input we got from mapper.py
+    key, value = line.split('\t', 1)
+
+    # convert value (currently a string) to float
+    try:
+        value = float(value)
+    except ValueError:
+        # if value was not a number, ignore/discard this line
+        continue
+
+    # this IF-switch only works because Hadoop sorts map output
+    # by key (here: word) before it is passed to the reducer
+    if key == "Number":
+        current_sum += value
+        current_count += 1
+
+# compute the average
+if current_count != 0:
+    average = current_sum / current_count
+    print(f'Average\t{average}')
+
+
+================================================================
+
+Streaming code :- 
+
+hadoop jar /home/hdoop/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar \
+-file mapper.py -mapper mapper.py \
+-file reducer.py -reducer reducer.py \
+-input /bda244/input.txt \
+-output /bda244/oup1
+
+
+===========================================================================
+
+
