@@ -1,0 +1,55 @@
+frequency
+
+======================
+
+mapper.py
+
+
+#!/usr/bin/env python3
+import sys
+
+for line in sys.stdin:
+    # Assuming numbers are space or comma-separated, split the line into numbers
+    numbers = line.strip().replace(',', ' ').split()
+    for number in numbers:
+        # Emit each number with a count of 1
+        print(f'{number}\t1')
+
+===============================================================================
+
+reducer.py
+
+
+#!/usr/bin/env python3
+import sys
+
+current_number = None
+current_count = 0
+number = None
+
+# input comes from STDIN
+for line in sys.stdin:
+    # Parse the input we got from mapper.py
+    number, count = line.strip().split('\t', 1)
+    
+    # Convert count (currently a string) to int
+    try:
+        count = int(count)
+    except ValueError:
+        # If count was not a number, ignore/discard this line
+        continue
+
+    if current_number == number:
+        current_count += count
+    else:
+        if current_number:
+            # Write result to STDOUT
+            print(f'{current_number}\t{current_count}')
+        current_count = count
+        current_number = number
+
+# Do not forget to output the last word if needed!
+if current_number == number:
+    print(f'{current_number}\t{current_count}')
+
+=================================================================================
