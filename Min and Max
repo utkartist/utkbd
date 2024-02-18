@@ -1,0 +1,38 @@
+Min and Max
+
+Mapper.py
+
+#!/usr/bin/env python3
+import sys
+
+# Emit each number with a constant key
+for line in sys.stdin:
+    line = line.strip()
+    numbers = line.split(' ')
+    for number in numbers:
+        print(f'Num\t{number}')
+
+====================================================================
+
+Reducer.py
+
+#!/usr/bin/env python3
+import sys
+
+max_val = float('-inf')
+min_val = float('inf')
+
+for line in sys.stdin:
+    _, value = line.strip().split('\t', 1)
+    value = float(value)
+    
+    if value > max_val:
+        max_val = value
+    if value < min_val:
+        min_val = value
+
+print(f'Maximum\t{max_val}')
+print(f'Minimum\t{min_val}')
+
+
+=======================================================
