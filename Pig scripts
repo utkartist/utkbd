@@ -1,3 +1,14 @@
+Step 1 :- 
+
+Transfer to HDFS: 
+
+hdfs dfs -put  /home/hdoop/bda1/input.txt     input.txt  
+
+==========================================================================================================================
+Step 2 ] create your pig script by sudo gedit pigscript.pig
+=======================================================================================================
+
+
 Min and Max values
 
 -- Load the data
@@ -60,4 +71,29 @@ distinctNumbers = DISTINCT numbers;
 DUMP distinctNumbers;
 
 
+=====================================================================================================
+step 3] check for your pigscript file
 ============================================================================================
+
+hdfs dfs -ls home/hdoop/bda1/input.txt
+
+===================================================================================================
+step 4] Execute your pigscript by 
+
+:-
+
+
+for mapreduce
+
+pig -x mapreduce pigscript.pig
+
+
+for local
+
+pig -x local pigscript.pig
+
+
+
+
+
+LODU
