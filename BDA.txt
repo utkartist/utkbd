@@ -1,0 +1,42 @@
+wsl
+cd
+cd hadoop-docker-compose/
+./run.sh
+password
+init
+ls
+nano utk1.txt
+hadoop fs -ls /
+hadoop fs -put /utk1.txt /bda
+hadoop fs -ls /bda
+hadoop fs -cat /bda/utk1.txt
+exit
+
+stream/map:
+utkis-directory mei
+send file to bda
+nano utk1.txt
+nano map.py
+nano red.py
+mapred streaming -input /bda/utk1.txt -output /out -file /utkis/map.py -mapper /utkis/map.py -reducer /utkis/red.py -file /utkis/red.py
+hadoop fs -cat /out
+hadoop fs -ls /out
+hadoop fs -cat /out/part-m-00000
+
+pig:
+nano input.txt
+nano pig.pig
+pig -x local pig.pig with file locations full
+utkis/out/part-m-00000
+pig -x mapreduce pip.pig with half locations
+
+record = LOAD '/mera_dir/input.txt/';
+STORE record INTO '/mera_dir/out'; for local
+
+record = LOAD '/hadoopwala/input.txt/';
+STORE record INTO '/hadoopwala/out'; for local
+
+wget https://raw.githubusercontent.com/ashaypatil11/hadoop/main/movies.item
+wget https://raw.githubusercontent.com/ashaypatil11/hadoop/main/ratings.data
+
+
